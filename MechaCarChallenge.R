@@ -3,7 +3,6 @@
 
 library(dplyr)
 
-
 # Import and read in the MechaCar_mpg.csv file as a dataframe.
 
 MechaCar_mpg_df <- read.csv('MechaCar_mpg.csv',stringsAsFactors = F) #read in dataset
@@ -16,3 +15,19 @@ lm(formula = mpg ~ vehicle_length + vehicle_weight + spoiler_angle + ground_clea
 
 
 summary(lm(formula = mpg ~ vehicle_length + vehicle_weight + spoiler_angle + ground_clearance + AWD, data = MechaCar_mpg_df)) #generate summary statistics
+
+# Deliverable 2: Create Visualizations for the Trip Analysis
+
+# Download the Suspension_Coil.csv file, and place it in the active directory for your R session.
+
+coil_table <- read.csv('Suspension_Coil.csv',check.names = F,stringsAsFactors = F)
+
+# Write an RScript that creates a total_summary dataframe using the summarize() function to get the mean, median, variance, and standard deviation of the suspension coil’s PSI column.
+
+total_summary <- coil_table %>% summarize(Mean=mean(PSI),Median=median(PSI),Variance=var(PSI), SD=sd(PSI), .groups = 'keep') #Create a total summary
+
+# Write an RScript that creates a lot_summary dataframe using the group_by() and the summarize() functions to group each manufacturing lot by the mean, median, variance, and standard deviation of the suspension coil’s PSI column.
+
+lot_summary <- coil_table %>% group_by(Manufacturing_Lot) %>% summarize(Mean=mean(PSI),Median=median(PSI),Variance=var(PSI), SD=sd(PSI), .groups = 'keep') #Create a total summary
+
+
