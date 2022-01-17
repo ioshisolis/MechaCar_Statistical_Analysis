@@ -215,12 +215,25 @@ pre code {
 
 
 <!-- rnb-text-begin -->
+<p>Deliverable 1: Linear Regression to Predict MPG</p>
 <p>Use the library() function to load the dplyr package.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkcGx5cilcbmBgYCJ9 -->
 <pre class="r"><code>library(dplyr)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYZHBseXLigJlcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOnN0YXRz4oCZOlxuXG4gICAgZmlsdGVyLCBsYWdcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOmJhc2XigJk6XG5cbiAgICBpbnRlcnNlY3QsIHNldGRpZmYsIHNldGVxdWFsLCB1bmlvblxuIn0= -->
+<pre><code>
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
@@ -241,7 +254,7 @@ you could try ‘??read’</code></pre>
 <pre class="r"><code>MechaCar_mpg_df &lt;- read.csv(&#39;MechaCar_mpg.csv&#39;,stringsAsFactors = F) #read in dataset
 head(MechaCar_mpg_df)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6Niwic3VtbWFyeSI6eyJEZXNjcmlwdGlvbiI6WyJkZiBbNiDDlyA2XSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUF3dHlpVERtaXVCaVlHQmdabUJoWkdKZ1pnVXlHVmhEUTl4MExSZ1lXSmlBSEVZR0ZnWk9FRjBCVkNRTVpMQUJNUitJZHRCTmVibnUxc2xVQjAzQjVzSW5YN1k3bURDQWdZUFc3YVFpYTlhbkRuclBrdmROQzdaejBIbGg1Yk9XOFJwYzMwNzJUOTYzRnl4MTJHSW5zc0JYaU1uaGdNZmZHWmJ1bmc2SFVxOCtESEgyYzFoYkdacGx2c2JlWVUvWkRNTzFpbVp3ZlI2cGNtb0dCKzBjd2hvZzlnU3ZLUCtsSk5YdTRQM0RTRDk5NFZJSEs0WHo4Y3FCd2c1MlU5L2RPMXEwRytGT0Q3MjNkUjc2RGpxNzk2YXRDSjN2b05INHJNeFI1YkdENXE5ZXI5QW5mUTU2cGxhek5zeDY0YUJsZG1qbURIR1FIbDZvUHhtaG1BR05EWFZQbTNkM2k2NmlnMU1TWDlSM21TYUhFS2ovalQ2eWxteGhaM2J3ZjltZEwvZHhzNE9IYTFtK0IwOGNXb0N5NWlYbXBoWURHUUpneXlDQ2ZHV3BHWm5KT2FueE9hbDU2U1VaNktMbHFabnBHU1ZRVWQ3aWd2ek1uTlNpK01TODlKeFVxS0JBZWxGK2FWNUtQRkIxWWxGaVhqSk1uTmt4M0FYR3pDMUlSM01MWjFGK3VSN01QU0RQTTBHQ0dCUUlxSTVPemtrc2hqa2FKc2lWa2xpU3FKZFdCTlFQNVAxRDA4S2VYMUNTbVo4SDFNUUVTajZzYUpvWmk5QUVCRXJ6UUM1SjBVM09LTTNMMWpVMEFObUFGUDY4VUpvTmxRMnlrK2svMUN4V3FGbHN3RkRNeklPRkFXdE9ZbEpxRGl4TWdWNEcrMWl2b0NnekR4YW1YRURSWXIyUy9KSkVtRHF1NVB3Y21Balljd3ovQUs4b0IxRTJBd0FBIn0= -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6Niwic3VtbWFyeSI6eyJEZXNjcmlwdGlvbiI6WyJkZiBbNiDDlyA2XSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUF3dHlpVERtaXVCaVlHQmdabUJoWkdKZ1pnVXlHVmhEUTl4MExSZ1lXSmlBSEVZR0ZnWk9FRjBCVkNRTVpMQUJNUitJZHRCTmVibnUxc2xVQjAzQjVzSW5YN1k3bURDQWdZUFc3YVFpYTlhbkRuclBrdmROQzdaejBIbGg1Yk9XOFJwYzMwNzJUOTYzRnl4MTJHSW5zc0JYaU1uaGdNZmZHWmJ1bmc2SFVxOCtESEgyYzFoYkdacGx2c2JlWVUvWkRNTzFpbVp3ZlI2cGNtb0dCKzBjd2hvZzlnU3ZLUCtsSk5YdTRQM0RTRDk5NFZJSEs0WHo4Y3FCd2c1MlU5L2RPMXEwRytGT0Q3MjNkUjc2RGpxNzk2YXRDSjN2b05INHJNeFI1YkdENXE5ZXI5QW5mUTU2cGxhek5zeDY0YUJsZG1qbURIR1FIbDZvUHhtaG1BR05EWFZQbTNkM2k2NmlnMU1TWDlSM21TYUhFS2ovalQ2eWxteGhaM2J3ZjltZEwvZHhzNE9IYTFtK0IwOGNXb0N5NWlYbXBoWURHUUpneXlDQ2ZHV3BHWm5KT2FueE9hbDU2U1VaNktMbHFabnBHU1ZRVWQ3aWd2ek1uTlNpK01TODlKeFVxS0JBZWxGK2FWNUtQRkIxWWxGaVhqSk1uTmt4M0FYR3pDMUlSM01MWjFGK3VSN01QU0RQTTBHQ0dCUUlxSTVPemtrc2hqa2FKc2lWa2xpU3FKZFdCTlFQNVAxRDA4S2VYMUNTbVo4SDFNUUVTajZzYUpvWmk5QUUrRXZ6UUM1SjBVM09LTTNMMWpVR1dZQVUvTHhRbWcyVkRiS1M2VC9VS0Zhb1VXekFRTXpNZ3dVQmEwNWlVbW9PTEVpQlBnWjdXSytnS0RNUEZxUmNRTkZpdlpMOGtrU1lPcTdrL0J5WUNOaHZEUDhBY082Vk1qVURBQUE9In0= -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["vehicle_length"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["vehicle_weight"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["spoiler_angle"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["ground_clearance"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["AWD"],"name":[5],"type":["int"],"align":["right"]},{"label":["mpg"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"14.69710","2":"6407.946","3":"48.78998","4":"14.64098","5":"1","6":"49.04918","_rn_":"1"},{"1":"12.53421","2":"5182.081","3":"90.00000","4":"14.36668","5":"1","6":"36.76606","_rn_":"2"},{"1":"20.00000","2":"8337.981","3":"78.63232","4":"12.25371","5":"0","6":"80.00000","_rn_":"3"},{"1":"13.42849","2":"9419.671","3":"55.93903","4":"12.98936","5":"1","6":"18.94149","_rn_":"4"},{"1":"15.44998","2":"3772.667","3":"26.12816","4":"15.10396","5":"1","6":"63.82457","_rn_":"5"},{"1":"14.45357","2":"7286.595","3":"30.58568","4":"13.10695","5":"0","6":"48.54268","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10],"total":[6]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
@@ -315,13 +328,35 @@ F-statistic: 22.07 on 5 and 44 DF,  p-value: 5.35e-11</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Deliverable 2: Create Visualizations for the Trip Analysis</p>
+<p>Download the Suspension_Coil.csv file, and place it in the active directory for your R session.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29pbF90YWJsZSA8LSByZWFkLmNzdignU3VzcGVuc2lvbl9Db2lsLmNzdicsY2hlY2submFtZXMgPSBGLHN0cmluZ3NBc0ZhY3RvcnMgPSBGKVxuYGBgIn0= -->
+<pre class="r"><code>coil_table &lt;- read.csv(&#39;Suspension_Coil.csv&#39;,check.names = F,stringsAsFactors = F)</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Write an RScript that creates a total_summary dataframe using the summarize() function to get the mean, median, variance, and standard deviation of the suspension coil’s PSI column.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudG90YWxfc3VtbWFyeSA8LSBjb2lsX3RhYmxlICU+JSBzdW1tYXJpemUoTWVhbj1tZWFuKFBTSSksTWVkaWFuPW1lZGlhbihQU0kpLFZhcmlhbmNlPXZhcihQU0kpLCBTRD1zZChQU0kpLCAuZ3JvdXBzID0gJ2tlZXAnKSAjQ3JlYXRlIGEgdG90YWwgc3VtbWFyeVxuYGBgIn0= -->
+<pre class="r"><code>total_summary &lt;- coil_table %&gt;% summarize(Mean=mean(PSI),Median=median(PSI),Variance=var(PSI), SD=sd(PSI), .groups = &#39;keep&#39;) #Create a total summary</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Write an RScript that creates a lot_summary dataframe using the group_by() and the summarize() functions to group each manufacturing lot by the mean, median, variance, and standard deviation of the suspension coil’s PSI column.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubG90X3N1bW1hcnkgPC0gY29pbF90YWJsZSAlPiUgZ3JvdXBfYnkoTWFudWZhY3R1cmluZ19Mb3QpICU+JSBzdW1tYXJpemUoTWVhbj1tZWFuKFBTSSksTWVkaWFuPW1lZGlhbihQU0kpLFZhcmlhbmNlPXZhcihQU0kpLCBTRD1zZChQU0kpLCAuZ3JvdXBzID0gJ2tlZXAnKSAjQ3JlYXRlIGEgdG90YWwgc3VtbWFyeVxuYGBgIn0= -->
+<pre class="r"><code>lot_summary &lt;- coil_table %&gt;% group_by(Manufacturing_Lot) %&gt;% summarize(Mean=mean(PSI),Median=median(PSI),Variance=var(PSI), SD=sd(PSI), .groups = &#39;keep&#39;) #Create a total summary</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>s</p>
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKClVzZSB0aGUgbGlicmFyeSgpIGZ1bmN0aW9uIHRvIGxvYWQgdGhlIGRwbHlyIHBhY2thZ2UuCmBgYHtyfQpsaWJyYXJ5KGRwbHlyKQpgYGAKCmBgYHtyfQo/cmVhZApgYGAKCgpJbXBvcnQgYW5kIHJlYWQgaW4gdGhlIE1lY2hhQ2FyX21wZy5jc3YgZmlsZSBhcyBhIGRhdGFmcmFtZS4KCgoKYGBge3J9Ck1lY2hhQ2FyX21wZ19kZiA8LSByZWFkLmNzdignTWVjaGFDYXJfbXBnLmNzdicsc3RyaW5nc0FzRmFjdG9ycyA9IEYpICNyZWFkIGluIGRhdGFzZXQKaGVhZChNZWNoYUNhcl9tcGdfZGYpCmBgYApUeXBlIHRoZSBmb2xsb3dpbmcgY29kZSBpbnRvIHRoZSBSIGNvbnNvbGUgdG8gbG9vayBhdCB0aGUgbG0oKSBkb2N1bWVudGF0aW9uIGluIHRoZSBIZWxwIHBhbmU6CmBgYHtyfQo/bG0oKQpgYGAKUGVyZm9ybSBsaW5lYXIgcmVncmVzc2lvbiB1c2luZyB0aGUgbG0oKSBmdW5jdGlvbi4gSW4gdGhlIGxtKCkgZnVuY3Rpb24sIHBhc3MgaW4gYWxsIHNpeCB2YXJpYWJsZXMgKGkuZS4sIGNvbHVtbnMpLCBhbmQgYWRkIHRoZSBkYXRhZnJhbWUgeW91IGNyZWF0ZWQgaW4gU3RlcCA0IGFzIHRoZSBkYXRhIHBhcmFtZXRlci4KYGBge3J9CgpgYGAKClRvIGNyZWF0ZSBhIGxpbmVhciByZWdyZXNzaW9uIG1vZGVsLCBvdXIgUiBzdGF0ZW1lbnQgd291bGQgYmUgYXMgZm9sbG93czoKCmBgYHtyfQpsbShmb3JtdWxhID0gbXBnIH4gdmVoaWNsZV9sZW5ndGggKyB2ZWhpY2xlX3dlaWdodCArIHNwb2lsZXJfYW5nbGUgKyBncm91bmRfY2xlYXJhbmNlICsgQVdELCBkYXRhID0gTWVjaGFDYXJfbXBnX2RmKSAjY3JlYXRlIGxpbmVhciBtb2RlbApgYGAKCmBgYHtyfQpzdW1tYXJ5KGxtKGZvcm11bGEgPSBtcGcgfiB2ZWhpY2xlX2xlbmd0aCArIHZlaGljbGVfd2VpZ2h0ICsgc3BvaWxlcl9hbmdsZSArIGdyb3VuZF9jbGVhcmFuY2UgKyBBV0QsIGRhdGEgPSBNZWNoYUNhcl9tcGdfZGYpKSAjZ2VuZXJhdGUgc3VtbWFyeSBzdGF0aXN0aWNzCmBgYAoKCgoKCgpgYGB7cn0KCmBgYAoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCkRlbGl2ZXJhYmxlIDE6IExpbmVhciBSZWdyZXNzaW9uIHRvIFByZWRpY3QgTVBHCgpVc2UgdGhlIGxpYnJhcnkoKSBmdW5jdGlvbiB0byBsb2FkIHRoZSBkcGx5ciBwYWNrYWdlLgpgYGB7cn0KbGlicmFyeShkcGx5cikKYGBgCgpgYGB7cn0KP3JlYWQKYGBgCgoKSW1wb3J0IGFuZCByZWFkIGluIHRoZSBNZWNoYUNhcl9tcGcuY3N2IGZpbGUgYXMgYSBkYXRhZnJhbWUuCgoKCmBgYHtyfQpNZWNoYUNhcl9tcGdfZGYgPC0gcmVhZC5jc3YoJ01lY2hhQ2FyX21wZy5jc3YnLHN0cmluZ3NBc0ZhY3RvcnMgPSBGKSAjcmVhZCBpbiBkYXRhc2V0CmhlYWQoTWVjaGFDYXJfbXBnX2RmKQpgYGAKVHlwZSB0aGUgZm9sbG93aW5nIGNvZGUgaW50byB0aGUgUiBjb25zb2xlIHRvIGxvb2sgYXQgdGhlIGxtKCkgZG9jdW1lbnRhdGlvbiBpbiB0aGUgSGVscCBwYW5lOgpgYGB7cn0KP2xtKCkKYGBgClBlcmZvcm0gbGluZWFyIHJlZ3Jlc3Npb24gdXNpbmcgdGhlIGxtKCkgZnVuY3Rpb24uIEluIHRoZSBsbSgpIGZ1bmN0aW9uLCBwYXNzIGluIGFsbCBzaXggdmFyaWFibGVzIChpLmUuLCBjb2x1bW5zKSwgYW5kIGFkZCB0aGUgZGF0YWZyYW1lIHlvdSBjcmVhdGVkIGluIFN0ZXAgNCBhcyB0aGUgZGF0YSBwYXJhbWV0ZXIuCmBgYHtyfQoKYGBgCgpUbyBjcmVhdGUgYSBsaW5lYXIgcmVncmVzc2lvbiBtb2RlbCwgb3VyIFIgc3RhdGVtZW50IHdvdWxkIGJlIGFzIGZvbGxvd3M6CgpgYGB7cn0KbG0oZm9ybXVsYSA9IG1wZyB+IHZlaGljbGVfbGVuZ3RoICsgdmVoaWNsZV93ZWlnaHQgKyBzcG9pbGVyX2FuZ2xlICsgZ3JvdW5kX2NsZWFyYW5jZSArIEFXRCwgZGF0YSA9IE1lY2hhQ2FyX21wZ19kZikgI2NyZWF0ZSBsaW5lYXIgbW9kZWwKYGBgCgpgYGB7cn0Kc3VtbWFyeShsbShmb3JtdWxhID0gbXBnIH4gdmVoaWNsZV9sZW5ndGggKyB2ZWhpY2xlX3dlaWdodCArIHNwb2lsZXJfYW5nbGUgKyBncm91bmRfY2xlYXJhbmNlICsgQVdELCBkYXRhID0gTWVjaGFDYXJfbXBnX2RmKSkgI2dlbmVyYXRlIHN1bW1hcnkgc3RhdGlzdGljcwpgYGAKCgoKCkRlbGl2ZXJhYmxlIDI6IENyZWF0ZSBWaXN1YWxpemF0aW9ucyBmb3IgdGhlIFRyaXAgQW5hbHlzaXMKCkRvd25sb2FkIHRoZSBTdXNwZW5zaW9uX0NvaWwuY3N2IGZpbGUsIGFuZCBwbGFjZSBpdCBpbiB0aGUgYWN0aXZlIGRpcmVjdG9yeSBmb3IgeW91ciBSIHNlc3Npb24uCgoKYGBge3J9CmNvaWxfdGFibGUgPC0gcmVhZC5jc3YoJ1N1c3BlbnNpb25fQ29pbC5jc3YnLGNoZWNrLm5hbWVzID0gRixzdHJpbmdzQXNGYWN0b3JzID0gRikKY29pbF90YWJsZQpgYGAKCldyaXRlIGFuIFJTY3JpcHQgdGhhdCBjcmVhdGVzIGEgdG90YWxfc3VtbWFyeSBkYXRhZnJhbWUgdXNpbmcgdGhlIHN1bW1hcml6ZSgpIGZ1bmN0aW9uIHRvIGdldCB0aGUgbWVhbiwgbWVkaWFuLCB2YXJpYW5jZSwgYW5kIHN0YW5kYXJkIGRldmlhdGlvbiBvZiB0aGUgc3VzcGVuc2lvbiBjb2ls4oCZcyBQU0kgY29sdW1uLgoKYGBge3J9CnRvdGFsX3N1bW1hcnkgPC0gY29pbF90YWJsZSAlPiUgc3VtbWFyaXplKE1lYW49bWVhbihQU0kpLE1lZGlhbj1tZWRpYW4oUFNJKSxWYXJpYW5jZT12YXIoUFNJKSwgU0Q9c2QoUFNJKSwgLmdyb3VwcyA9ICdrZWVwJykgI0NyZWF0ZSBhIHRvdGFsIHN1bW1hcnkKYGBgCgpXcml0ZSBhbiBSU2NyaXB0IHRoYXQgY3JlYXRlcyBhIGxvdF9zdW1tYXJ5IGRhdGFmcmFtZSB1c2luZyB0aGUgZ3JvdXBfYnkoKSBhbmQgdGhlIHN1bW1hcml6ZSgpIGZ1bmN0aW9ucyB0byBncm91cCBlYWNoIG1hbnVmYWN0dXJpbmcgbG90IGJ5IHRoZSBtZWFuLCBtZWRpYW4sIHZhcmlhbmNlLCBhbmQgc3RhbmRhcmQgZGV2aWF0aW9uIG9mIHRoZSBzdXNwZW5zaW9uIGNvaWzigJlzIFBTSSBjb2x1bW4uCgpgYGB7cn0KbG90X3N1bW1hcnkgPC0gY29pbF90YWJsZSAlPiUgZ3JvdXBfYnkoTWFudWZhY3R1cmluZ19Mb3QpICU+JSBzdW1tYXJpemUoTWVhbj1tZWFuKFBTSSksTWVkaWFuPW1lZGlhbihQU0kpLFZhcmlhbmNlPXZhcihQU0kpLCBTRD1zZChQU0kpLCAuZ3JvdXBzID0gJ2tlZXAnKSAjQ3JlYXRlIGEgdG90YWwgc3VtbWFyeQpgYGAKcwoK</div>
 
 
 
